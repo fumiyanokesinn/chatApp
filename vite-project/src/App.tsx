@@ -4,7 +4,9 @@ import { Login } from "./components/Login";
 function App() {
   return (
     <UIProvider>
-      <Login />
+      <div>
+        <Login />
+      </div>
     </UIProvider>
   );
 }
