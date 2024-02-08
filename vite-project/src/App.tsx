@@ -1,12 +1,12 @@
 import { UIProvider } from "@yamada-ui/react";
 import { Login } from "./components/Login";
+import { Header } from "./components/Header";
 
 function App() {
   return (
     <UIProvider>
-      <div>
-        <Login />
-      </div>
+      <Header title="ログインページ" />
+      <Login />
     </UIProvider>
   );
 }

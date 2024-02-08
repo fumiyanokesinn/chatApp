@@ -7,7 +7,7 @@ type Header = {
 export const Header = (props: Header) => {
   return (
     <div>
-      <Box p="md" bg="#d3d5da">
+      <Box p="md" bg="#2e3138">
         <Heading size="md">{props.title}</Heading>
       </Box>
     </div>

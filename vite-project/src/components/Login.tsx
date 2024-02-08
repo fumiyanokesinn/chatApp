@@ -15,21 +15,18 @@ export const Login = () => {
 
   return (
     <div>
-      <div>
-        <Header title="ログインページ" />
-      </div>
       <div className="absolute inset-0 flex items-center justify-center">
-        <Box p="md" rounded="md" bg="#d3d5da" color="black" className="w-1/4">
+        <Box p="md" rounded="md" bg="#1c1e21" className="w-1/4">
           <Container>
-            <Heading size="lg">Third Chat</Heading>
+            <Heading size="lg">Sign in to your account</Heading>
             <Input
               placeholder="メールアドレス"
-              bg="white"
+              bg="#434851"
               onChange={onChangeEmail}
             />
             <Input
               placeholder="パスワード"
-              bg="white"
+              bg="#434851"
               onChange={onChangePassword}
             />
             <Flex justify="center">
