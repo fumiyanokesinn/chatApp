@@ -1,4 +1,4 @@
-import { Button } from "@yamada-ui/react";
+import { Switch } from "@yamada-ui/react";
 import { useState, useEffect } from "react";
 
 export const ToggleDarkMode = () => {
@@ -16,8 +16,10 @@ export const ToggleDarkMode = () => {
   }, [darkMode]);
 
   return (
-    <Button onClick={() => setDarkMode(!darkMode)}>
-      {darkMode ? "ダークモード" : "ライトモード"}
-    </Button>
+    <Switch
+      colorScheme="green"
+      defaultIsChecked={darkMode}
+      onChange={() => setDarkMode(!darkMode)}
+    />
   );
 };
