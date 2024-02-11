@@ -1,5 +1,7 @@
 import { Switch } from "@yamada-ui/react";
 import { useState, useEffect } from "react";
+import { Icon as FontAwesomeIcon } from "@yamada-ui/fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 export const ToggleDarkMode = () => {
   const [darkMode, setDarkMode] = useState(
@@ -16,10 +18,15 @@ export const ToggleDarkMode = () => {
   }, [darkMode]);
 
   return (
-    <Switch
-      colorScheme="green"
-      defaultIsChecked={darkMode}
-      onChange={() => setDarkMode(!darkMode)}
-    />
+    <div>
+      <FontAwesomeIcon icon={faSun} />
+
+      <Switch
+        colorScheme="green"
+        defaultIsChecked={darkMode}
+        onChange={() => setDarkMode(!darkMode)}
+      />
+      <FontAwesomeIcon icon={faMoon} />
+    </div>
   );
 };
