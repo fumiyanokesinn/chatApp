@@ -1,6 +1,5 @@
 import { Box, Button, Container, Flex, Heading, Input } from "@yamada-ui/react";
 import { useState } from "react";
-import { ToggleDarkMode } from "./ToggleDarkMode";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +14,15 @@ export const Login = () => {
 
   return (
     <div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <Box p="md" rounded="md" bg="#1c1e21" className="w-1/4">
+      <div className="flex flex-col items-center justify-center m-4 sm:h-screen lg:py-0">
+        <Box
+          p="md"
+          rounded="md"
+          bg="#1c1e21"
+          className="md:mt-0 sm:max-w-md xl:p-0"
+        >
           <Container>
             <Heading size="lg">Sign in to your account</Heading>
-            <ToggleDarkMode />
             <Input
               placeholder="メールアドレス"
               bg="#434851"

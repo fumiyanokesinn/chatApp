@@ -20,7 +20,6 @@ export const ToggleDarkMode = () => {
   return (
     <div>
       <FontAwesomeIcon icon={faSun} />
-
       <Switch
         colorScheme="green"
         defaultIsChecked={darkMode}
