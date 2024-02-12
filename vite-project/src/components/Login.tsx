@@ -19,7 +19,7 @@ export const Login = () => {
           p="md"
           rounded="md"
           bg="#1c1e21"
-          className="md:mt-0 sm:max-w-md xl:p-0"
+          className="md:mt-0 sm:max-w-md xl:p-0 text-white"
         >
           <Container>
             <Heading size="lg">Sign in to your account</Heading>
