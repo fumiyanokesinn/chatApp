@@ -31,7 +31,7 @@ export const Login = () => {
           p="md"
           rounded="md"
           bg="#1c1e21"
-          className="md:mt-0 sm:max-w-md xl:p-0 text-white"
+          className="w-full md:mt-0 sm:max-w-md xl:p-0 text-white"
         >
           <Container>
             <Heading size="lg">Sign in to your account</Heading>
@@ -60,6 +60,12 @@ export const Login = () => {
             <Flex justify="center">
               <Button colorScheme="success">ログイン</Button>
             </Flex>
+            <p className="text-sm font-light text-gray-400">
+              Don’t have an account yet?{" "}
+              <a href="#" className="font-medium hover:underline text-blue-400">
+                Sign up
+              </a>
+            </p>
           </Container>
         </Box>
       </div>
