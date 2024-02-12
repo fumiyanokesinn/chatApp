@@ -45,7 +45,6 @@ export const Login = () => {
             <FormControl label="Password">
               <InputGroup>
                 <Input
-                  pr="4.5rem"
                   placeholder="••••••••"
                   bg="#434851"
                   onChange={onChangePassword}
