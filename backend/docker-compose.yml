@@ -5,6 +5,6 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - .:/go/src
+      - ./go:/go/src
     tty: true
     restart: always
