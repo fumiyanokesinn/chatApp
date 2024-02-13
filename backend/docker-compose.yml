@@ -1,0 +1,10 @@
+version: "3"
+services:
+  golang:
+    image: golang:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/go/src
+    tty: true
+    restart: always
