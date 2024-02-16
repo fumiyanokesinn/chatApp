@@ -8,3 +8,14 @@ services:
       - ./go:/go/src
     tty: true
     restart: always
+  db:
+    image: mysql:8.0.34
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
