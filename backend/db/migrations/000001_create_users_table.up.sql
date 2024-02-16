@@ -1,6 +1,6 @@
-CREATE TABLE "users" (
-  "id" bigserial PRIMARY KEY,
-  "username" varchar NOT NULL,
-  "email" varchar NOT NULL UNIQUE,
-  "password" varchar NOT NULL
+CREATE TABLE `users` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL
 )
