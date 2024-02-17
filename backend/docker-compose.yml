@@ -5,7 +5,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./go:/go/src
+      - ./:/src
+    working_dir: /src
     tty: true
     restart: always
   db:
