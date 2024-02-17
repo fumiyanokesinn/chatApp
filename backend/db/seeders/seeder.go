@@ -17,4 +17,7 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+
+	// Seederを実行
+	usersSeeder(db)
 }
