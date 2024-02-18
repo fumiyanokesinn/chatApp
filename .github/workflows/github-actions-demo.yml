@@ -10,13 +10,10 @@ jobs:
       - run: echo "🔎 あなたのブランチの名前は${{ github.ref }}で、リポジトリは${{ github.repository }}です。"
       - name: チェックアウトしています。
         uses: actions/checkout@v4
-      - name: バックエンドディレクトリに移動
+      - name: バックエンドディレクトリに移動しコンテナを立ち上げる
         run: |
           cd backend
-          ls
+          docker-compose up -d
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls
       - run: echo "🍏 This job's status is ${{ job.status }}."
