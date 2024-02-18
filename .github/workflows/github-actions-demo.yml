@@ -19,7 +19,7 @@ jobs:
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
           sudo mv migrate.linux-amd64 /usr/local/bin/migrate
       - name: Run migrations
-        run: migrate -path backend/db/migrations -database "mysql://root:root@tcp(localhost:3306)/chat_db?sslmode=disable" up
+        run: migrate -path backend/db/migrations -database "mysql://root:root@tcp(localhost:3306)/chat_db" up
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - run: echo "🍏 This job's status is ${{ job.status }}."
