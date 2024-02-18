@@ -11,13 +11,13 @@ jobs:
       - name: チェックアウトしています。
         uses: actions/checkout@v4
       - name: バックエンドディレクトリに移動しコンテナを立ち上げる
-        run: docker-compose up -d -f ./backend/docker-compose.yml
+        run: docker-compose -f ./backend/docker-compose.yml up -d
+      - name: 立ち上げたコンテナを確認
+        run: docker ps
       - name: Install golang-migrate
         run: |
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
           sudo mv migrate.linux-amd64 /usr/local/bin/migrate
-      - name: Wait for a while
-        run: sleep 30
       - name: Run migrations
         run: migrate -path backend/db/migrations -database "mysql://root:root@tcp(localhost:3306)/chat_db?sslmode=disable" up
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
