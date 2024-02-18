@@ -11,9 +11,7 @@ jobs:
       - name: チェックアウトしています。
         uses: actions/checkout@v4
       - name: バックエンドディレクトリに移動しコンテナを立ち上げる
-        run: |
-          cd backend
-          docker-compose up -d
+        run: docker-compose up -d -f ./backend/docker-compose.yml
       - name: Install golang-migrate
         run: |
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
