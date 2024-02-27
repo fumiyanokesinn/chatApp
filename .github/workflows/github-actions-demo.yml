@@ -16,7 +16,7 @@ jobs:
         run: docker ps
       - name: マイグレーションを実行
         run: |
-          docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "migrate -path ./db/migrations -database 'mysql://root:root@tcp(db:3306)/chat_db' up"
+          docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "migrate -path=./db/migrations -database="mysql://root:root@tcp(db:3306)/chat_db" up"
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - run: echo "🍏 This job's status is ${{ job.status }}."
