@@ -13,4 +13,5 @@
 `migrate create -ext sql -dir db/migrations -seq create_users_table `
 
 Seeder実行
+
 `go run seeder.go usersSeeder.go `
