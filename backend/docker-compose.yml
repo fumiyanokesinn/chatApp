@@ -1,7 +1,7 @@
 version: "3"
 services:
   golang:
-    build: /app
+    build: ./app
     ports:
       - "8080:8080"
     volumes:
