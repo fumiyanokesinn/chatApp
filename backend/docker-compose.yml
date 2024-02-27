@@ -15,6 +15,7 @@ services:
     ports:
       - 3306:3306
     environment:
+      DB_HOST: db
       MYSQL_DATABASE: chat_db # データベース名
       MYSQL_ROOT_PASSWORD: root
       TZ: Asia/Tokyo
