@@ -11,7 +11,9 @@ jobs:
       - name: チェックアウトしています。
         uses: actions/checkout@v4
       - name: バックエンドディレクトリに移動しコンテナを立ち上げる
-        run: docker-compose -f ./backend/docker-compose.yml up -d --wait
+        run: docker-compose -f ./backend/docker-compose.yml up -d
+      - name: DBコンテナが立ち上がるまで待機
+        run: docker-compose -f ./backend/docker-compose.yml run wait db:3306 -- echo "Database is up"
       - name: 立ち上げたコンテナを確認
         run: docker ps
       - name: マイグレーションを実行

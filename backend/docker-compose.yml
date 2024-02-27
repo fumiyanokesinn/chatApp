@@ -22,3 +22,5 @@ services:
     volumes:
       - ./data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    wait:
+     image: willwill/wait-for-it:latest
