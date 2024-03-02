@@ -1,4 +1,4 @@
-package main
+package seeders
 
 import (
 	"database/sql"
@@ -7,7 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func usersSeeder(db *sql.DB) {
+func UsersSeeder(db *sql.DB) {
 	users := []struct {
 		Name     string
 		Email    string

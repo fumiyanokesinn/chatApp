@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/fumiyanokesinn/chatApp/db/seeder/seeders"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,5 +20,5 @@ func main() {
 	defer db.Close()
 
 	// Seederを実行
-	usersSeeder(db)
+	seeders.UsersSeeder(db)
 }
