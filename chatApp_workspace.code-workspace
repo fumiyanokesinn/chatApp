@@ -1,16 +1,17 @@
 {
-	"folders": [
-		{
-			"path": ".github"
-		},
-		{
-			"path": "backend"
-		},
-		{
-			"path": "vite-project"
-		}
-	],
-	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": ".github"
-	}
+  "folders": [
+    {
+      "path": ".github"
+    },
+    {
+      "path": "backend"
+    },
+    {
+      "path": "vite-project"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": ".github",
+    "cSpell.words": ["fumiyanokesinn"]
+  }
 }
