@@ -1,15 +1,5 @@
 version: "3"
 services:
-  golang:
-    build: ./app
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./app:/src
-    working_dir: /src
-    tty: true
-    restart: always
-    command: ["./wait-for-it.sh", "db:3306", "--", "echo", "Database is up"]
   db:
     image: mysql:latest
     container_name: mysql
@@ -23,3 +13,13 @@ services:
     volumes:
       - ./data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
+  golang:
+    build: ./app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app:/src
+    working_dir: /src
+    tty: true
+    depends_on:
+      - db
