@@ -7,6 +7,9 @@ WORKDIR /app
 # ホストマシンのファイルをコンテナ内の作業ディレクトリにコピー
 COPY . .
 
+# Ginをインストール
+RUN go get -u github.com/gin-gonic/gin
+
 # 依存関係をダウンロード
 RUN go mod download
 
