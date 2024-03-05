@@ -1,14 +1,14 @@
-package app
+package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/fumiyanokesinn/chatApp/api/http"
+	"github.com/gin-gonic/gin"
+)
 
 func SetRouter() *gin.Engine {
 	r := gin.Default()
 	// API動作確認用
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Health check OK",
-		})
-	})
+	r.GET("/ping", http.Ping)
+	// 下にエンドポイントを追加
 	return r
 }
