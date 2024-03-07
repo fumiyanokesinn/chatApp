@@ -7,8 +7,7 @@ WORKDIR /app
 # ホストマシンのファイルをコンテナ内の作業ディレクトリにコピー
 COPY . .
 
-# Ginをインストール
-RUN go get -u github.com/gin-gonic/gin
+RUN go mod tidy
 
 # 依存関係をダウンロード
 RUN go mod download
@@ -21,6 +20,8 @@ ARG MIGRATE_VERSION=v4.15.1
 
 # golang-migrateをダウンロードしてインストール
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${MIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz -C /usr/local/bin migrate
+
+RUN go install github.com/ramya-rao-a/go-outline@latest
 
 # アプリケーションを実行
 # CMD ["./main"]
