@@ -19,9 +19,6 @@ RUN go build -o main .
 # golang-migrateのバージョンを指定
 ARG MIGRATE_VERSION=v4.15.1
 
-# golang-migrateのバージョンを指定
-ARG MIGRATE_VERSION=v4.15.1
-
 # golang-migrateをダウンロードしてインストール
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${MIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz -C /usr/local/bin migrate
 
