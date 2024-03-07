@@ -21,7 +21,10 @@ ARG MIGRATE_VERSION=v4.15.1
 # golang-migrateをダウンロードしてインストール
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${MIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz -C /usr/local/bin migrate
 
-RUN go install github.com/ramya-rao-a/go-outline@latest
+# go.modでは管理しない、開発に必要なツールをインストール
+RUN go install github.com/ramya-rao-a/go-outline@latest && \
+    go install github.com/go-delve/delve/cmd/dlv@latest
+
 
 # アプリケーションを実行
 # CMD ["./main"]
