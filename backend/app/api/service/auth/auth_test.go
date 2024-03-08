@@ -5,7 +5,7 @@ import (
 )
 
 func TestAuthenticate(t *testing.T) {
-	var loginInfo = loginInfo{
+	var loginInfo = LoginInfo{
 		Email:    "alice@example.com",
 		Password: "password",
 	}
@@ -22,7 +22,7 @@ func TestAuthenticate(t *testing.T) {
 }
 
 func TestAuthenticateFalseByPassword(t *testing.T) {
-	var loginInfo = loginInfo{
+	var loginInfo = LoginInfo{
 		Email:    "alice@example.com",
 		Password: "false",
 	}

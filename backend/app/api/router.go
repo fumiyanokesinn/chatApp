@@ -10,5 +10,6 @@ func SetRouter() *gin.Engine {
 	// API動作確認用
 	r.GET("/ping", http.Ping)
 	// 下にエンドポイントを追加
+	r.POST("/login", http.Login)
 	return r
 }

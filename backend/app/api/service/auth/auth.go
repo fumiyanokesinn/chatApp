@@ -7,12 +7,12 @@ import (
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 )
 
-type loginInfo struct {
+type LoginInfo struct {
 	Email    string
 	Password string
 }
 
-func Authenticate(loginInfo loginInfo) (bool, error) {
+func Authenticate(loginInfo LoginInfo) (bool, error) {
 	db := model.ConnectDB()
 	userRepo := user.NewUserRepository(db)
 
