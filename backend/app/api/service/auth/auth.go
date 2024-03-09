@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/fumiyanokesinn/chatApp/api/model"
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 	"github.com/gin-gonic/gin"
 )
@@ -22,11 +21,17 @@ var AuthMessages = map[string]string{
 	"Success":          "ログインに成功しました",
 }
 
-func Authenticate(loginInfo LoginInfo) error {
-	db := model.ConnectDB()
-	userRepo := user.NewUserRepository(db)
+// AuthService は認証のロジックを担当するサービスです。
+type AuthService struct {
+	UserRepo user.UserRepository
+}
 
-	user, err := userRepo.FindByEmail(loginInfo.Email)
+func NewAuthService(repo user.UserRepository) *AuthService {
+	return &AuthService{UserRepo: repo}
+}
+
+func (s *AuthService) Authenticate(loginInfo LoginInfo) error {
+	user, err := s.UserRepo.FindByEmail(loginInfo.Email)
 
 	if err != nil {
 		if err == sql.ErrNoRows {

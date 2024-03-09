@@ -1,22 +1,34 @@
 package auth
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"github.com/fumiyanokesinn/chatApp/api/model"
+	"github.com/fumiyanokesinn/chatApp/api/model/user"
 	"github.com/gin-gonic/gin"
 )
 
+func setup() (*sql.DB, user.UserRepository, *AuthService) {
+	db := model.ConnectDB()
+	userRepo := user.NewSQLUserRepository(db)
+	authService := NewAuthService(userRepo)
+	return db, userRepo, authService
+}
+
 func TestAuthenticate(t *testing.T) {
+	_, _, authService := setup()
+
 	var loginInfo = LoginInfo{
 		Email:    "alice@example.com",
 		Password: "password",
 	}
 
-	error := Authenticate(loginInfo)
+	error := authService.Authenticate(loginInfo)
 
 	if error != nil {
 		t.Errorf("エラー起きてます")
@@ -24,12 +36,14 @@ func TestAuthenticate(t *testing.T) {
 }
 
 func TestAuthenticateFalseByPassword(t *testing.T) {
+	_, _, authService := setup()
+
 	var loginInfo = LoginInfo{
 		Email:    "alice@example.com",
 		Password: "false",
 	}
 
-	err := Authenticate(loginInfo)
+	err := authService.Authenticate(loginInfo)
 
 	if err.Error() != AuthMessages["PasswordMismatch"] {
 		t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["PasswordMismatch"], err.Error())
@@ -37,12 +51,14 @@ func TestAuthenticateFalseByPassword(t *testing.T) {
 }
 
 func TestAuthenticateFalseByEmail(t *testing.T) {
+	_, _, authService := setup()
+
 	var loginInfo = LoginInfo{
 		Email:    "false@example.com",
 		Password: "password",
 	}
 
-	err := Authenticate(loginInfo)
+	err := authService.Authenticate(loginInfo)
 
 	if err.Error() != AuthMessages["NotFoundUser"] {
 		t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["NotFoundUser"], err.Error())
