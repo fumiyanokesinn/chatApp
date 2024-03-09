@@ -50,6 +50,6 @@ func HandleLoginError(c *gin.Context, err error) {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "サーバーエラーが発生しました。"})
 		}
 	} else {
-		c.JSON(http.StatusNotFound, gin.H{"message": LoginMessages["Success"]})
+		c.JSON(http.StatusOK, gin.H{"message": LoginMessages["Success"]})
 	}
 }
