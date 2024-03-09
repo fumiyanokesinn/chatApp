@@ -21,15 +21,19 @@ var AuthMessages = map[string]string{
 	"Success":          "ログインに成功しました",
 }
 
-type AuthService struct {
+type AuthService interface {
+	Authenticate(loginInfo LoginInfo) error
+}
+
+type authService struct {
 	UserRepo user.UserRepository
 }
 
-func NewAuthService(repo user.UserRepository) *AuthService {
-	return &AuthService{UserRepo: repo}
+func NewAuthService(repo user.UserRepository) *authService {
+	return &authService{UserRepo: repo}
 }
 
-func (s *AuthService) Authenticate(loginInfo LoginInfo) error {
+func (s *authService) Authenticate(loginInfo LoginInfo) error {
 	user, err := s.UserRepo.FindByEmail(loginInfo.Email)
 
 	if err != nil {

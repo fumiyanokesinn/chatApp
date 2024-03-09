@@ -17,15 +17,15 @@ type UserRepository interface {
 	FindByEmail(email string) (*User, error)
 }
 
-type SQLUserRepository struct {
+type userRepository struct {
 	DB *sql.DB
 }
 
-func NewSQLUserRepository(db *sql.DB) *SQLUserRepository {
-	return &SQLUserRepository{DB: db}
+func NewUserRepository(db *sql.DB) *userRepository {
+	return &userRepository{DB: db}
 }
 
-func (repo *SQLUserRepository) FindByEmail(email string) (*User, error) {
+func (repo *userRepository) FindByEmail(email string) (*User, error) {
 	var user User
 	query := "SELECT id, name, email, password FROM users WHERE email = ?"
 	err := repo.DB.QueryRow(query, email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)

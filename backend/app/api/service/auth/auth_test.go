@@ -13,9 +13,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func setup() (*sql.DB, user.UserRepository, *AuthService) {
+func setup() (*sql.DB, user.UserRepository, *authService) {
 	db := model.ConnectDB()
-	userRepo := user.NewSQLUserRepository(db)
+	userRepo := user.NewUserRepository(db)
 	authService := NewAuthService(userRepo)
 	return db, userRepo, authService
 }

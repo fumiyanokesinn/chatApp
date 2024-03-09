@@ -8,7 +8,7 @@ import (
 
 func TestFindByEmail(t *testing.T) {
 	db := model.ConnectDB()
-	userRepo := NewSQLUserRepository(db)
+	userRepo := NewUserRepository(db)
 
 	user, err := userRepo.FindByEmail("alice@example.com")
 	if err != nil {

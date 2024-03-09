@@ -12,9 +12,9 @@ func SetRouter() *gin.Engine {
 	r := gin.Default()
 	db := model.ConnectDB() // データベース接続
 
-	userRepo := user.NewSQLUserRepository(db)
+	userRepo := user.NewUserRepository(db)
 	authService := auth.NewAuthService(userRepo)
-	loginHandler := http.NewLoginHandler(*authService)
+	loginHandler := http.NewLoginHandler(authService)
 
 	// API動作確認用
 	r.GET("/ping", http.Ping)
