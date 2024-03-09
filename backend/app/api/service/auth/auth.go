@@ -21,7 +21,6 @@ var AuthMessages = map[string]string{
 	"Success":          "ログインに成功しました",
 }
 
-// AuthService は認証のロジックを担当するサービスです。
 type AuthService struct {
 	UserRepo user.UserRepository
 }

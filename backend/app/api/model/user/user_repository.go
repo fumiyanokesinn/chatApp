@@ -13,22 +13,18 @@ type User struct {
 	Password string
 }
 
-// UserRepository はユーザー情報にアクセスするためのインターフェイスです。
 type UserRepository interface {
 	FindByEmail(email string) (*User, error)
 }
 
-// SQLUserRepository はUserRepositoryのSQLに基づく実装です。
 type SQLUserRepository struct {
 	DB *sql.DB
 }
 
-// NewSQLUserRepository は新しいSQLUserRepositoryインスタンスを作成します。
-func NewSQLUserRepository(db *sql.DB) UserRepository {
+func NewSQLUserRepository(db *sql.DB) *SQLUserRepository {
 	return &SQLUserRepository{DB: db}
 }
 
-// FindByEmail は指定されたメールアドレスに基づいてユーザーを検索します。
 func (repo *SQLUserRepository) FindByEmail(email string) (*User, error) {
 	var user User
 	query := "SELECT id, name, email, password FROM users WHERE email = ?"
