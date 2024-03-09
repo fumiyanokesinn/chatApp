@@ -12,18 +12,18 @@ type LoginInfo struct {
 	Password string
 }
 
-func Authenticate(loginInfo LoginInfo) (bool, error) {
+func Authenticate(loginInfo LoginInfo) error {
 	db := model.ConnectDB()
 	userRepo := user.NewUserRepository(db)
 
 	user, err := userRepo.FindByEmail(loginInfo.Email)
 
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	if user.Password != loginInfo.Password {
-		return false, fmt.Errorf("パスワードが違います")
+		return fmt.Errorf("パスワードが違います")
 	}
-	return true, nil
+	return nil
 }
