@@ -36,7 +36,7 @@ func Login(c *gin.Context) {
 var LoginMessages = map[string]string{
 	"NotFoundUser":     "ユーザーが見つかりません。",
 	"PasswordMismatch": "パスワードが違います。",
-	"Sucsess":          "ログインに成功しました",
+	"Success":          "ログインに成功しました",
 }
 
 func HandleLoginError(c *gin.Context, err error) {
@@ -50,6 +50,6 @@ func HandleLoginError(c *gin.Context, err error) {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": "サーバーエラーが発生しました。"})
 		}
 	} else {
-		c.JSON(http.StatusNotFound, gin.H{"message": LoginMessages["Sucsess"]})
+		c.JSON(http.StatusNotFound, gin.H{"message": LoginMessages["Success"]})
 	}
 }
