@@ -27,6 +27,11 @@ export const Login = () => {
 
   const { login, message } = useLogin();
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // フォームのデフォルトの送信を防止
+    login({ email, password });
+  };
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center m-4 sm:h-screen lg:py-0">
@@ -38,36 +43,35 @@ export const Login = () => {
         >
           <Container>
             <Heading size="lg">Sign in to your account</Heading>
-            <FormControl label="Email address">
-              <Input
-                placeholder="example@company.com"
-                bg="#434851"
-                onChange={onChangeEmail}
-              />
-            </FormControl>
-            <FormControl label="Password">
-              <InputGroup>
+            <form onSubmit={handleSubmit}>
+              <FormControl label="Email address">
                 <Input
-                  placeholder="••••••••"
+                  placeholder="example@company.com"
                   bg="#434851"
-                  onChange={onChangePassword}
-                  type={show ? "text" : "password"}
+                  onChange={onChangeEmail}
                 />
-                <InputRightElement w="4.5rem" isClick>
-                  <Button h="1.75rem" size="sm" onClick={toggle}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            <Flex justify="center">
-              <Button
-                colorScheme="success"
-                onClick={() => login({ email: email, password: password })}
-              >
-                ログイン
-              </Button>
-            </Flex>
+              </FormControl>
+              <FormControl label="Password">
+                <InputGroup>
+                  <Input
+                    placeholder="••••••••"
+                    bg="#434851"
+                    onChange={onChangePassword}
+                    type={show ? "text" : "password"}
+                  />
+                  <InputRightElement w="4.5rem" isClick>
+                    <Button h="1.75rem" size="sm" onClick={toggle}>
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Flex justify="center" className="mt-4">
+                <Button colorScheme="success" type="submit">
+                  ログイン
+                </Button>
+              </Flex>
+            </form>
             {message}
             <p className="text-sm font-light text-gray-400">
               Don’t have an account yet?{" "}
