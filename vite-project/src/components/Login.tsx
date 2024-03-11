@@ -11,6 +11,7 @@ import {
   useBoolean,
 } from "@yamada-ui/react";
 import { useState } from "react";
+import { login } from "../service/authService";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -58,7 +59,12 @@ export const Login = () => {
               </InputGroup>
             </FormControl>
             <Flex justify="center">
-              <Button colorScheme="success">ログイン</Button>
+              <Button
+                colorScheme="success"
+                onClick={() => login({ email: email, password: password })}
+              >
+                ログイン
+              </Button>
             </Flex>
             <p className="text-sm font-light text-gray-400">
               Don’t have an account yet?{" "}
