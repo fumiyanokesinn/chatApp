@@ -11,7 +11,7 @@ import {
   useBoolean,
 } from "@yamada-ui/react";
 import { useState } from "react";
-import { login } from "../service/authService";
+import useLogin from "../hooks/useLogin";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +24,8 @@ export const Login = () => {
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
   };
+
+  const { login, message } = useLogin();
 
   return (
     <div>
@@ -66,6 +68,7 @@ export const Login = () => {
                 ログイン
               </Button>
             </Flex>
+            {message}
             <p className="text-sm font-light text-gray-400">
               Don’t have an account yet?{" "}
               <a href="#" className="font-medium hover:underline text-blue-400">
