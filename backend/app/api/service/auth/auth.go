@@ -15,7 +15,7 @@ type LoginInfo struct {
 }
 
 var AuthMessages = map[string]string{
-	"NotFoundUser":     "ユーザーが見つかりません。",
+	"NotFoundUser":     "メールアドレスが登録されていません。",
 	"PasswordMismatch": "パスワードが違います。",
 	"ServerError":      "サーバーエラーが発生しました。",
 	"Success":          "ログインに成功しました",
