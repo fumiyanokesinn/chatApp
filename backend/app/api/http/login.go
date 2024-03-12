@@ -4,16 +4,19 @@ import (
 	"net/http"
 
 	"github.com/fumiyanokesinn/chatApp/api/service/auth"
+	"github.com/fumiyanokesinn/chatApp/api/service/token"
 	"github.com/gin-gonic/gin"
 )
 
 type LoginHandler struct {
-	AuthService auth.AuthService
+	AuthService  auth.AuthService
+	TokenService token.TokenService
 }
 
-func NewLoginHandler(service auth.AuthService) *LoginHandler {
+func NewLoginHandler(authService auth.AuthService, tokenService token.TokenService) *LoginHandler {
 	return &LoginHandler{
-		AuthService: service,
+		AuthService:  authService,
+		TokenService: tokenService,
 	}
 }
 

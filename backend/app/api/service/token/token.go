@@ -12,8 +12,21 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
+type TokenService interface {
+	CreateToken(userID string) (string, error)
+}
+
+// tokenService構造体は、TokenServiceインターフェイスを実装します。
+type tokenService struct {
+}
+
+// NewTokenService関数は、新しいtokenServiceインスタンスを生成します。
+func NewTokenService() *tokenService {
+	return &tokenService{}
+}
+
 // CreateToken generates a JWT token for a given user ID
-func CreateToken(userID string) (string, error) {
+func (s *tokenService) CreateToken(userID string) (string, error) {
 	// Set token claims
 	claims := &Claims{
 		UserID: userID,

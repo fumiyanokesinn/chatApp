@@ -7,8 +7,10 @@ import (
 )
 
 func TestCreateToken(t *testing.T) {
+	service := NewTokenService()
+
 	userID := "test-user-id"
-	tokenString, err := CreateToken(userID)
+	tokenString, err := service.CreateToken(userID)
 
 	if err != nil {
 		t.Errorf("エラーが発生しました。")

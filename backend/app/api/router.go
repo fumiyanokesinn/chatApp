@@ -7,6 +7,7 @@ import (
 	"github.com/fumiyanokesinn/chatApp/api/model"
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 	"github.com/fumiyanokesinn/chatApp/api/service/auth"
+	"github.com/fumiyanokesinn/chatApp/api/service/token"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +19,8 @@ func SetRouter() *gin.Engine {
 	db := model.ConnectDB() // データベース接続
 	userRepo := user.NewUserRepository(db)
 	authService := auth.NewAuthService(userRepo)
-	loginHandler := myhttp.NewLoginHandler(authService)
+	tokenService := token.NewTokenService()
+	loginHandler := myhttp.NewLoginHandler(authService, tokenService)
 
 	// API動作確認用
 	r.GET("/ping", myhttp.Ping)
