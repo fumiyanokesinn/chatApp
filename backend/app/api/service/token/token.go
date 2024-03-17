@@ -1,23 +1,27 @@
 package token
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 )
 
 // JWT claims struct
 type Claims struct {
-	UserID string `json:"userId"`
+	Email string `json:"email"`
 	jwt.StandardClaims
 }
 
 type TokenService interface {
-	CreateToken(userID string) (string, error)
+	CreateToken(email string) error
+	ResponseToken(c *gin.Context, err error)
 }
 
 // tokenService構造体は、TokenServiceインターフェイスを実装します。
 type tokenService struct {
+	Token string
 }
 
 // NewTokenService関数は、新しいtokenServiceインスタンスを生成します。
@@ -26,10 +30,10 @@ func NewTokenService() *tokenService {
 }
 
 // CreateToken generates a JWT token for a given user ID
-func (s *tokenService) CreateToken(userID string) (string, error) {
+func (s *tokenService) CreateToken(email string) error {
 	// Set token claims
 	claims := &Claims{
-		UserID: userID,
+		Email: email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(24 * time.Hour).Unix(), // Token expires in 24 hours
 		},
@@ -41,8 +45,19 @@ func (s *tokenService) CreateToken(userID string) (string, error) {
 	// Sign token with secret. Replace "your_secret_key" with your actual secret key.
 	signedToken, err := token.SignedString([]byte("your_secret_key"))
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	return signedToken, nil
+	s.Token = signedToken
+
+	return nil
+}
+
+func (s *tokenService) ResponseToken(c *gin.Context, err error) {
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": s.Token})
 }

@@ -28,5 +28,11 @@ func (h *LoginHandler) Login(c *gin.Context) {
 	}
 
 	err := h.AuthService.Authenticate(loginInfo)
-	auth.HandleAuthError(c, err)
-}
+	if err != nil {
+		auth.HandleAuthError(c, err)
+		return
+	}
+
+	err = h.TokenService.CreateToken(loginInfo.Email)
+	h.TokenService.ResponseToken(c, err)
+ }

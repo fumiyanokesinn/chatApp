@@ -63,7 +63,5 @@ func HandleAuthError(c *gin.Context, err error) {
 		default:
 			c.JSON(http.StatusInternalServerError, gin.H{"message": AuthMessages["ServerError"]})
 		}
-	} else {
-		c.JSON(http.StatusOK, gin.H{"message": AuthMessages["Success"]})
 	}
 }

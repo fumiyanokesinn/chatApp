@@ -94,12 +94,6 @@ func TestHandleAuthError(t *testing.T) {
 			expectedCode:    http.StatusInternalServerError,
 			expectedMessage: `{"message":"サーバーエラーが発生しました。"}`,
 		},
-		{
-			name:            "No error",
-			err:             nil,
-			expectedCode:    http.StatusOK,
-			expectedMessage: fmt.Sprintf(`{"message":"%s"}`, AuthMessages["Success"]),
-		},
 	}
 
 	for _, tt := range tests {
