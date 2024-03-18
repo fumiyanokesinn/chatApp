@@ -1,7 +1,10 @@
 package api
 
 import (
+	"net/http"
+
 	myhttp "github.com/fumiyanokesinn/chatApp/api/http"
+	"github.com/fumiyanokesinn/chatApp/api/middleware"
 	"github.com/fumiyanokesinn/chatApp/api/model"
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 	"github.com/fumiyanokesinn/chatApp/api/service/auth"
@@ -25,7 +28,16 @@ func SetRouter() *gin.Engine {
 	r.GET("/ping", myhttp.Ping)
 	// 下にエンドポイントを追加
 	r.POST("/login", loginHandler.Login)
-	r.POST("/auth/test", loginHandler.Login)
+
+	// JWT認証を適用するグループ
+	authRequired := r.Group("/api")
+	authRequired.Use(middleware.AuthMiddleware())
+	{
+		authRequired.GET("/secure", func(c *gin.Context) {
+			// JWT認証が必要なエンドポイント
+			c.JSON(http.StatusOK, gin.H{"message": "Secure content"})
+		})
+	}
 
 	return r
 }

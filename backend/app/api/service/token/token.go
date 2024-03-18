@@ -2,6 +2,7 @@ package token
 
 import (
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -42,7 +43,7 @@ func (s *tokenService) CreateToken(email string) error {
 	// Create token with claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	signedToken, err := token.SignedString([]byte("your_secret_key"))
+	signedToken, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
 	if err != nil {
 		return err
 	}

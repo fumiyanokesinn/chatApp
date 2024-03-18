@@ -12,6 +12,10 @@
   ],
   "settings": {
     "liveServer.settings.multiRootWorkspaceName": ".github",
-    "cSpell.words": ["fumiyanokesinn", "gonic"]
+    "cSpell.words": [
+      "fumiyanokesinn",
+      "godotenv",
+      "gonic"
+    ]
   }
 }
