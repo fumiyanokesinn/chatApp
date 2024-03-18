@@ -6,13 +6,14 @@ import (
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 	"github.com/fumiyanokesinn/chatApp/api/service/auth"
 	"github.com/fumiyanokesinn/chatApp/api/service/token"
+	"github.com/fumiyanokesinn/chatApp/config"
 	"github.com/gin-gonic/gin"
 )
 
 func SetRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.Use(CORSMiddleware()) // CORSミドルウェアを全体に適用
+	r.Use((config.CORSMiddleware())) // CORSミドルウェアを全体に適用
 
 	db := model.ConnectDB() // データベース接続
 	userRepo := user.NewUserRepository(db)

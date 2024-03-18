@@ -42,7 +42,6 @@ func (s *tokenService) CreateToken(email string) error {
 	// Create token with claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	// Sign token with secret. Replace "your_secret_key" with your actual secret key.
 	signedToken, err := token.SignedString([]byte("your_secret_key"))
 	if err != nil {
 		return err
