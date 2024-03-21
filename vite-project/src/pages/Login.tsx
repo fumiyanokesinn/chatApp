@@ -69,7 +69,7 @@ export const Login = () => {
               </FormControl>
               <Flex justify="center" className="mt-4">
                 <Button colorScheme="success" type="submit">
-                  ログイン
+                  Login
                 </Button>
               </Flex>
             </form>
