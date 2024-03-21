@@ -10,7 +10,7 @@ function App() {
       <Header title="ログインページ" />
       <Routes>
         <Route path={`/`} element={<Login />} />
-        <Route path={`/page1`} element={<UserStore />} />
+        <Route path={`/create-account`} element={<UserStore />} />
       </Routes>
     </UIProvider>
   );

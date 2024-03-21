@@ -12,6 +12,7 @@ import {
 } from "@yamada-ui/react";
 import { useState } from "react";
 import useLogin from "../hooks/useLogin";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -75,9 +76,12 @@ export const Login = () => {
             {message}
             <p className="text-sm font-light text-gray-400">
               Don’t have an account yet?{" "}
-              <a href="#" className="font-medium hover:underline text-blue-400">
+              <Link
+                to="/create-account"
+                className="font-medium hover:underline text-blue-400"
+              >
                 Sign up
-              </a>
+              </Link>
             </p>
           </Container>
         </Box>
