@@ -79,7 +79,7 @@ export const CreateAccount = () => {
             <BuckButton />
             <Spacer />
             <Button colorScheme="success" type="submit">
-              Login
+              Register
             </Button>
           </Flex>
         </Container>
