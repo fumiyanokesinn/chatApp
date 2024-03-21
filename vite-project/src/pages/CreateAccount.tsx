@@ -2,11 +2,13 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   FormControl,
   Heading,
   Input,
   InputGroup,
   InputRightElement,
+  Spacer,
   useBoolean,
 } from "@yamada-ui/react";
 import { BuckButton } from "../components/BuckButton";
@@ -64,7 +66,13 @@ export const CreateAccount = () => {
               </InputGroup>
             </FormControl>
           </form>
-          <BuckButton />
+          <Flex className="mt-4">
+            <BuckButton />
+            <Spacer />
+            <Button colorScheme="success" type="submit">
+              Login
+            </Button>
+          </Flex>
         </Container>
       </Box>
     </div>
