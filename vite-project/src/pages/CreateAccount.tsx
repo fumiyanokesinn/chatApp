@@ -13,12 +13,15 @@ import {
 } from "@yamada-ui/react";
 import { BuckButton } from "../components/BuckButton";
 import { useState } from "react";
+import useCreateAccount from "../hooks/useCreateAccount";
 
 export const CreateAccount = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, { toggle }] = useBoolean();
+
+  const { createAccount, message } = useCreateAccount();
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
@@ -28,6 +31,11 @@ export const CreateAccount = () => {
   };
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // フォームのデフォルトの送信を防止
+    createAccount({ name, email, password });
   };
   return (
     <div className="flex flex-col items-center justify-center m-4 sm:h-screen lg:py-0">
@@ -39,7 +47,7 @@ export const CreateAccount = () => {
       >
         <Container>
           <Heading size="lg">Create your account</Heading>
-          <form>
+          <form onSubmit={handleSubmit}>
             <FormControl label="Name">
               <Input placeholder="Alice" bg="#434851" onChange={onChangeName} />
             </FormControl>
@@ -66,6 +74,7 @@ export const CreateAccount = () => {
               </InputGroup>
             </FormControl>
           </form>
+          {message}
           <Flex className="mt-4">
             <BuckButton />
             <Spacer />
