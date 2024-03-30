@@ -28,6 +28,10 @@ func SetRouter() *gin.Engine {
 	r.GET("/ping", myhttp.Ping)
 	// 下にエンドポイントを追加
 	r.POST("/login", loginHandler.Login)
+	r.POST("/create_account", func(c *gin.Context) {
+		// JWT認証が必要なエンドポイント
+		c.JSON(http.StatusOK, gin.H{"message": "Secure content"})
+	})
 
 	// JWT認証を適用するグループ
 	authRequired := r.Group("/api")
