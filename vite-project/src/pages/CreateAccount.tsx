@@ -73,15 +73,15 @@ export const CreateAccount = () => {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
+            {message}
+            <Flex className="mt-4">
+              <BuckButton />
+              <Spacer />
+              <Button colorScheme="success" type="submit">
+                Register
+              </Button>
+            </Flex>
           </form>
-          {message}
-          <Flex className="mt-4">
-            <BuckButton />
-            <Spacer />
-            <Button colorScheme="success" type="submit">
-              Register
-            </Button>
-          </Flex>
         </Container>
       </Box>
     </div>
