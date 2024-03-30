@@ -3,13 +3,16 @@ package token
 import (
 	"errors"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/fumiyanokesinn/chatApp/config"
 	"github.com/gin-gonic/gin"
 )
 
 func TestCreateToken(t *testing.T) {
+	config.TestGetEnv()
 	service := NewTokenService()
 
 	email := "alice@example.com"
@@ -18,10 +21,13 @@ func TestCreateToken(t *testing.T) {
 	if err != nil {
 		t.Errorf("エラーが発生しました。")
 	}
-
+	// トークンの検証とクレームの取得
 	token, err := jwt.ParseWithClaims(service.Token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte("your_secret_key"), nil
+		// 実際の秘密鍵を使用することが重要です
+		secretKey := os.Getenv("SECRET_KEY")
+		return []byte(secretKey), nil
 	})
+
 	if err != nil {
 		t.Fatalf("トークンの解析に失敗しました: %v", err)
 	}
