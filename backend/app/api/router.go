@@ -23,15 +23,13 @@ func SetRouter() *gin.Engine {
 	authService := auth.NewAuthService(userRepo)
 	tokenService := token.NewTokenService()
 	loginHandler := myhttp.NewLoginHandler(authService, tokenService)
+	createAccountHandler := myhttp.NewCreateAccount()
 
 	// API動作確認用
 	r.GET("/ping", myhttp.Ping)
 	// 下にエンドポイントを追加
 	r.POST("/login", loginHandler.Login)
-	r.POST("/create_account", func(c *gin.Context) {
-		// JWT認証が必要なエンドポイント
-		c.JSON(http.StatusOK, gin.H{"message": "Secure content"})
-	})
+	r.POST("/create_account", createAccountHandler.CreateAccount)
 
 	// JWT認証を適用するグループ
 	authRequired := r.Group("/api")
