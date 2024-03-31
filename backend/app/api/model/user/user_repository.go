@@ -15,6 +15,7 @@ type User struct {
 
 type UserRepository interface {
 	FindByEmail(email string) (*User, error)
+	CreateUser(user User) (*User, error)
 }
 
 type userRepository struct {
@@ -30,4 +31,21 @@ func (repo *userRepository) FindByEmail(email string) (*User, error) {
 	query := "SELECT id, name, email, password FROM users WHERE email = ?"
 	err := repo.DB.QueryRow(query, email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	return &user, err
+}
+
+func (repo *userRepository) CreateUser(user User) (*User, error) {
+
+	query := "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+	result, err := repo.DB.Exec(query, user.Name, user.Email, user.Password)
+	if err != nil {
+		return nil, err
+	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
+	user.ID = int(id)
+
+	return &user, nil
 }

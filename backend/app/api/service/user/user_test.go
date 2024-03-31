@@ -17,15 +17,16 @@ func setup() (*sql.DB, user.UserRepository, *userService) {
 func TestStoreUser(t *testing.T) {
 	_, _, userService := setup()
 
-	var loginInfo = UserInfo{
+	var loginInfo = user.User{
 		Name:     "alice",
 		Email:    "alice@example.com",
 		Password: "password",
 	}
 
-	error := userService.storeUser(loginInfo)
+	_, error := userService.StoreUser(loginInfo)
 
 	if error != nil {
 		t.Errorf("エラー起きてます")
 	}
+
 }

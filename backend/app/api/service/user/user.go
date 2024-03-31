@@ -6,15 +6,8 @@ import (
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
 )
 
-type UserInfo struct {
-	ID       int
-	Name     string
-	Email    string
-	Password string
-}
-
 type UserService interface {
-	storeUser(userInfo UserInfo) error
+	StoreUser(user user.User) (*user.User, error)
 }
 
 type userService struct {
@@ -25,11 +18,12 @@ func NewUserService(repo user.UserRepository) *userService {
 	return &userService{UserRepo: repo}
 }
 
-func (s *userService) storeUser(userInfo UserInfo) error {
-	if userInfo.ID != 0 {
-		fmt.Printf("更新します")
+func (s *userService) StoreUser(userRequest user.User) (*user.User, error) {
+	if userRequest.ID == 0 {
+		user, _ := s.UserRepo.CreateUser(userRequest)
+		return user, nil
 	} else {
-		fmt.Printf("登録します")
+		fmt.Printf("更新します")
+		return nil, nil
 	}
-	return nil
 }
