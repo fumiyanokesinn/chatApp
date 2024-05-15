@@ -13,6 +13,12 @@ var (
 	db   *sql.DB   // データベース接続インスタンス
 )
 
+// *sql.DB and *sql.Txの共通インターフェース
+type Execer interface {
+	Exec(query string, args ...interface{}) (sql.Result, error)
+	QueryRow(query string, args ...interface{}) *sql.Row
+}
+
 // ConnectDBはデータベース接続のシングルトンインスタンスを返します。
 func ConnectDB() *sql.DB {
 	once.Do(func() {

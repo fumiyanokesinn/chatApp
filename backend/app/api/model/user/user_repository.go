@@ -1,8 +1,7 @@
 package user
 
 import (
-	"database/sql"
-
+	"github.com/fumiyanokesinn/chatApp/api/model"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,10 +18,10 @@ type UserRepository interface {
 }
 
 type userRepository struct {
-	DB *sql.DB
+	DB model.Execer
 }
 
-func NewUserRepository(db *sql.DB) *userRepository {
+func NewUserRepository(db model.Execer) *userRepository {
 	return &userRepository{DB: db}
 }
 

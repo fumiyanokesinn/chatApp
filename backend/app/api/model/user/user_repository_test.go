@@ -4,26 +4,32 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/fumiyanokesinn/chatApp/api/model"
 	"github.com/fumiyanokesinn/chatApp/api/test"
 )
 
 func TestFindByEmail(t *testing.T) {
-	db := model.ConnectDBTest()
-	userRepo := NewUserRepository(db)
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
+		userRepo := NewUserRepository(db)
 
-	user, err := userRepo.FindByEmail("test@example.com")
-	if err != nil {
-		t.Fatalf("Error getting user: %v", err)
-	}
+		// テスト用のユーザーを作成
+		_, err := db.Exec("INSERT INTO users (name, email,password) VALUES (?, ?, ?)", "test", "test@example.com", "password")
+		if err != nil {
+			t.Fatalf("Error creating user: %v", err)
+		}
 
-	if user.Name != "test" {
-		t.Errorf("検索が上手く行ってません。期待される名前: Alice, 検索結果: %s", user.Name)
-	}
+		user, err := userRepo.FindByEmail("test@example.com")
+		if err != nil {
+			t.Fatalf("Error getting user: %v", err)
+		}
+
+		if user.Name != "test" {
+			t.Fatalf("検索が上手く行ってません。期待される名前: test, 検索結果: %s", user.Name)
+		}
+	})
 }
 
 func TestCreateUser(t *testing.T) {
-	test.WithTransaction(t, func(t *testing.T, db *sql.DB) {
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
 		userRepo := NewUserRepository(db)
 
 		var userInfo = User{
@@ -38,16 +44,16 @@ func TestCreateUser(t *testing.T) {
 			t.Fatalf("Error getting user: %v", err)
 		}
 		if user.ID == 0 {
-			t.Errorf("登録が上手く行ってません。IDが0です")
+			t.Fatalf("登録が上手く行ってません。IDが0です")
 		}
 		if user.Name != "test" {
-			t.Errorf("登録が上手く行ってません。期待される名前: Alice, 登録結果: %s", user.Name)
+			t.Fatalf("登録が上手く行ってません。期待される名前: Alice, 登録結果: %s", user.Name)
 		}
 		if user.Email != "test@example.com" {
-			t.Errorf("登録が上手く行ってません。期待されるメール: test@example.com, 登録結果: %s", user.Email)
+			t.Fatalf("登録が上手く行ってません。期待されるメール: test@example.com, 登録結果: %s", user.Email)
 		}
 		if user.Password != "password" {
-			t.Errorf("登録が上手く行ってません。期待されるパスワード: password, 登録結果: %s", user.Password)
+			t.Fatalf("登録が上手く行ってません。期待されるパスワード: password, 登録結果: %s", user.Password)
 		}
 	})
 }
