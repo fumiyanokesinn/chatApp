@@ -14,7 +14,7 @@ func setupDB() *sql.DB {
 }
 
 // withTransactionはテスト関数をトランザクション内で実行し、終了後にロールバックする
-func WithTransaction(t *testing.T, testFunc func(*testing.T, *sql.DB)) {
+func WithTransaction(t *testing.T, testFunc func(*testing.T, *sql.Tx)) {
 	db := setupDB()
 	defer db.Close()
 
@@ -25,7 +25,5 @@ func WithTransaction(t *testing.T, testFunc func(*testing.T, *sql.DB)) {
 	defer tx.Rollback()
 
 	// テスト関数を実行
-	testFunc(t, db)
-
-	// ロールバックはdeferで行われるのでここでは何もしない
+	testFunc(t, tx)
 }
