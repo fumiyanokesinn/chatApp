@@ -16,7 +16,6 @@ func setupDB() *sql.DB {
 // withTransactionはテスト関数をトランザクション内で実行し、終了後にロールバックする
 func WithTransaction(t *testing.T, testFunc func(*testing.T, *sql.Tx)) {
 	db := setupDB()
-	defer db.Close()
 
 	tx, err := db.Begin()
 	if err != nil {

@@ -47,7 +47,7 @@ func TestCreateUser(t *testing.T) {
 			t.Fatalf("登録が上手く行ってません。IDが0です")
 		}
 		if user.Name != "test" {
-			t.Fatalf("登録が上手く行ってません。期待される名前: Alice, 登録結果: %s", user.Name)
+			t.Fatalf("登録が上手く行ってません。期待される名前: test, 登録結果: %s", user.Name)
 		}
 		if user.Email != "test@example.com" {
 			t.Fatalf("登録が上手く行ってません。期待されるメール: test@example.com, 登録結果: %s", user.Email)
