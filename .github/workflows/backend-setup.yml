@@ -16,7 +16,7 @@ jobs:
         run: docker ps
       - name: マイグレーションとSeederを実行
         run: |
-          docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "migrate -path ./db/migrations -database 'mysql://root:root@tcp(db:3306)/chat_db' up"
+          docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "migrate -path ./db/migrations -database 'mysql://root:root@tcp(db:3306)/chat_db_test' up"
           docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "go run ./db/seeder/seeder.go"
       - name: テストコードを実行
         run: docker-compose -f ./backend/docker-compose.yml exec -T golang /bin/sh -c "go test -v ./..."
