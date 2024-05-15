@@ -13,6 +13,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./initdb:/docker-entrypoint-initdb.d  # 初期化スクリプトディレクトリ
     healthcheck: # <- ここ
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
