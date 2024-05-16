@@ -5,9 +5,11 @@ import (
 	"testing"
 
 	"github.com/fumiyanokesinn/chatApp/api/test"
+	"github.com/fumiyanokesinn/chatApp/config"
 )
 
 func TestFindByEmail(t *testing.T) {
+	config.GetTestEnv()
 	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
 		userRepo := NewUserRepository(db)
 
@@ -29,6 +31,7 @@ func TestFindByEmail(t *testing.T) {
 }
 
 func TestCreateUser(t *testing.T) {
+	config.GetTestEnv()
 	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
 		userRepo := NewUserRepository(db)
 

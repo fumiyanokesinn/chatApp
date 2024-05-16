@@ -32,16 +32,3 @@ func ConnectDB() *sql.DB {
 	})
 	return db
 }
-
-// unit test用のDB接続
-func ConnectDBTest() *sql.DB {
-	once.Do(func() {
-		var err error
-		db, err = sql.Open("mysql", "root:root@tcp(db:3306)/chat_db_test")
-		if err != nil {
-			fmt.Println("DBに接続できませんでした")
-			panic(err)
-		}
-	})
-	return db
-}

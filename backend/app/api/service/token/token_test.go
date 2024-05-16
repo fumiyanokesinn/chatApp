@@ -12,7 +12,7 @@ import (
 )
 
 func TestCreateToken(t *testing.T) {
-	config.TestGetEnv()
+	config.GetTestEnv()
 	service := NewTokenService()
 
 	email := "alice@example.com"

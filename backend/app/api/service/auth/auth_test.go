@@ -10,59 +10,69 @@ import (
 
 	"github.com/fumiyanokesinn/chatApp/api/model"
 	"github.com/fumiyanokesinn/chatApp/api/model/user"
+	"github.com/fumiyanokesinn/chatApp/api/test"
+	"github.com/fumiyanokesinn/chatApp/config"
 	"github.com/gin-gonic/gin"
 )
 
-func setup() (*sql.DB, user.UserRepository, *authService) {
-	db := model.ConnectDB()
+func setup(db model.Execer) (user.UserRepository, *authService) {
 	userRepo := user.NewUserRepository(db)
 	authService := NewAuthService(userRepo)
-	return db, userRepo, authService
+	return userRepo, authService
 }
 
 func TestAuthenticate(t *testing.T) {
-	_, _, authService := setup()
+	config.GetTestEnv()
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
+		_, authService := setup(db)
 
-	var loginInfo = LoginInfo{
-		Email:    "alice@example.com",
-		Password: "password",
-	}
+		var loginInfo = LoginInfo{
+			Email:    "alice@example.com",
+			Password: "password",
+		}
 
-	error := authService.Authenticate(loginInfo)
+		error := authService.Authenticate(loginInfo)
 
-	if error != nil {
-		t.Errorf("エラー起きてます")
-	}
+		if error != nil {
+			t.Errorf("エラー起きてます")
+		}
+	})
 }
 
 func TestAuthenticateFalseByPassword(t *testing.T) {
-	_, _, authService := setup()
+	config.GetTestEnv()
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
+		_, authService := setup(db)
 
-	var loginInfo = LoginInfo{
-		Email:    "alice@example.com",
-		Password: "false",
-	}
+		var loginInfo = LoginInfo{
+			Email:    "alice@example.com",
+			Password: "false",
+		}
 
-	err := authService.Authenticate(loginInfo)
+		err := authService.Authenticate(loginInfo)
 
-	if err.Error() != AuthMessages["PasswordMismatch"] {
-		t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["PasswordMismatch"], err.Error())
-	}
+		if err.Error() != AuthMessages["PasswordMismatch"] {
+			t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["PasswordMismatch"], err.Error())
+		}
+	})
 }
 
 func TestAuthenticateFalseByEmail(t *testing.T) {
-	_, _, authService := setup()
+	config.GetTestEnv()
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
+		_, authService := setup(db)
 
-	var loginInfo = LoginInfo{
-		Email:    "false@example.com",
-		Password: "password",
-	}
+		var loginInfo = LoginInfo{
+			Email:    "false@example.com",
+			Password: "password",
+		}
 
-	err := authService.Authenticate(loginInfo)
+		err := authService.Authenticate(loginInfo)
 
-	if err.Error() != AuthMessages["NotFoundUser"] {
-		t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["NotFoundUser"], err.Error())
-	}
+		if err.Error() != AuthMessages["NotFoundUser"] {
+			t.Errorf("期待されるエラーメッセージ: '%s, 実際のエラーメッセージ: '%v'", AuthMessages["NotFoundUser"], err.Error())
+		}
+	})
 }
 
 func TestHandleAuthError(t *testing.T) {

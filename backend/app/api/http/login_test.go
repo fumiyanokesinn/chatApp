@@ -2,6 +2,7 @@ package http_test
 
 import (
 	"bytes"
+	"database/sql"
 	"encoding/json"
 
 	"net/http"
@@ -9,30 +10,36 @@ import (
 	"testing"
 
 	"github.com/fumiyanokesinn/chatApp/api"
+	"github.com/fumiyanokesinn/chatApp/api/test"
+	"github.com/fumiyanokesinn/chatApp/config"
 )
 
 func TestLogin(t *testing.T) {
-	loginInfo := struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}{
-		Email:    "alice@example.com",
-		Password: "password",
-	}
+	config.GetTestEnv()
+	test.WithTransaction(t, func(t *testing.T, db *sql.Tx) {
 
-	requestBody, err := json.Marshal(loginInfo)
-	if err != nil {
-		t.Fatalf("Error marshaling login info: %v", err)
-	}
+		loginInfo := struct {
+			Email    string `json:"email"`
+			Password string `json:"password"`
+		}{
+			Email:    "alice@example.com",
+			Password: "password",
+		}
 
-	router := api.SetRouter()
+		requestBody, err := json.Marshal(loginInfo)
+		if err != nil {
+			t.Fatalf("Error marshaling login info: %v", err)
+		}
 
-	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(requestBody))
+		router := api.SetRouter()
 
-	router.ServeHTTP(w, req)
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(requestBody))
 
-	if w.Code != http.StatusOK {
-		t.Errorf("Expected status code 200, but got %d", w.Code)
-	}
+		router.ServeHTTP(w, req)
+
+		if w.Code != http.StatusOK {
+			t.Errorf("Expected status code 200, but got %d", w.Code)
+		}
+	})
 }

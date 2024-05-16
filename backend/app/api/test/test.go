@@ -10,7 +10,7 @@ import (
 
 // setupDBはデータベース接続を設定する関数
 func setupDB() *sql.DB {
-	return model.ConnectDBTest()
+	return model.ConnectDB()
 }
 
 // withTransactionはテスト関数をトランザクション内で実行し、終了後にロールバックする
