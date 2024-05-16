@@ -13,8 +13,8 @@ func GetEnv() {
 	}
 }
 
-func TestGetEnv() {
-	err := godotenv.Load("../../../.env")
+func GetTestEnv() {
+	err := godotenv.Load("../../../.env.test")
 	if err != nil {
 		panic(fmt.Sprintf("Error loading .env file:\n%s", err))
 	}

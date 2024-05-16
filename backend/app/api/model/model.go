@@ -3,6 +3,7 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"sync"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -23,7 +24,7 @@ type Execer interface {
 func ConnectDB() *sql.DB {
 	once.Do(func() {
 		var err error
-		db, err = sql.Open("mysql", "root:root@tcp(db:3306)/chat_db")
+		db, err = sql.Open("mysql", os.Getenv("DATABASE"))
 		if err != nil {
 			fmt.Println("DBに接続できませんでした")
 			panic(err)
