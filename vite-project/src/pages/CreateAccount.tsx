@@ -37,6 +37,7 @@ export const CreateAccount = () => {
     e.preventDefault(); // フォームのデフォルトの送信を防止
     createAccount({ name, email, password });
   };
+
   return (
     <div className="flex flex-col items-center justify-center m-4 sm:h-screen lg:py-0">
       <Box
@@ -48,23 +49,30 @@ export const CreateAccount = () => {
         <Container>
           <Heading size="lg">Create your account</Heading>
           <form onSubmit={handleSubmit}>
-            <FormControl label="Name">
-              <Input placeholder="Alice" bg="#434851" onChange={onChangeName} />
+            <FormControl label="Name" isRequired>
+              <Input
+                placeholder="Alice"
+                bg="#434851"
+                onChange={onChangeName}
+                required
+              />
             </FormControl>
-            <FormControl label="Email address">
+            <FormControl label="Email address" isRequired>
               <Input
                 placeholder="example@company.com"
                 bg="#434851"
                 onChange={onChangeEmail}
+                required
               />
             </FormControl>
-            <FormControl label="Password">
+            <FormControl label="Password" isRequired>
               <InputGroup>
                 <Input
                   placeholder="••••••••"
                   bg="#434851"
                   onChange={onChangePassword}
                   type={show ? "text" : "password"}
+                  required
                 />
                 <InputRightElement w="4.5rem" isClick>
                   <Button h="1.75rem" size="sm" onClick={toggle}>
